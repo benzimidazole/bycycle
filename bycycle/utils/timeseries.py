@@ -43,12 +43,9 @@ def limit_signal(times, sig, start=None, stop=None):
     check_param(start, 'start', (0, stop))
     check_param(stop, 'stop', (start, np.inf))
 
-    if start is not None:
-        sig = sig[times >= start]
-        times = times[times >= start]
+    idxs = np.where((times >= start) & (times < stop))[0]
 
-    if stop is not None:
-        sig = sig[times < stop]
-        times = times[times < stop]
+    sig = sig[idxs]
+    times = times[idxs]
 
     return sig, times
